@@ -323,6 +323,17 @@ def editMode(inventory):
                 print("Item Edited!")
                 print("----------------------------------")
                 saveInventory(inventory)
+                
+def statistics(inventory):
+    quantity = 0
+    value = 0
+    for i in inventory.items:
+        quantity += i.quantity
+        value += i.retail * i.quantity
+    print("----------------------------------")
+    print("Amount of Items: " + str(quantity))
+    print("Value of Items: $" + str(round(value,2)))
+    print("----------------------------------")
     
 # Check for json and initialize of not present    
 f = open(file, "a+")
@@ -336,7 +347,7 @@ if(os.stat(file).st_size == 0):
 # main menu
 while(True):
     inventory = loadInventory()
-    print("DrowningWhale's Inventory Manager V1")
+    print("DrowningWhale's Inventory Manager V1.1")
     print("Main Menu")
     print("1 : Input Mode")
     print("2 : Output Mode")
@@ -344,6 +355,7 @@ while(True):
     print("4 : Edit Mode")
     print("5 : Print Inventory")
     print("6 : Erase Inventory")
+    print("7 : Statistics")
     print("0 : Exit")
     option = input("Menu Choice: ")
     option = option[0]
@@ -369,3 +381,5 @@ while(True):
                 with open(file, "w") as f:
                     f.write("[]")
                     f.close()
+        case "7":
+            statistics(inventory)
